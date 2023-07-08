@@ -6,7 +6,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=bank-database
+      - POSTGRES_DB=bankdatabase
       - DB_EXTENSION="uuid-ossp"
     ports:
       - "5432:5432"
@@ -23,7 +23,7 @@ services:
       - DATABASE_PORT=5432
       - DATABASE_USER=postgres
       - DATABASE_PASSWORD=postgres
-      - DATABASE_NAME=bank-database
+      - DATABASE_NAME=bankdatabase
     ports:
       - 8080:8080
     volumes:
