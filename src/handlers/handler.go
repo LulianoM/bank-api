@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"github.com/LulianoM/bank-api/src/controllers"
+	"github.com/LulianoM/bank-api/src/handlers/account"
 	"github.com/LulianoM/bank-api/src/handlers/healthcheck"
 	"github.com/LulianoM/bank-api/src/http/dispatcher"
 
@@ -16,10 +18,11 @@ type HandlerContainer struct {
 	Server   *fiber.App
 }
 
-func NewHandlerContainer() HandlerContainer {
+func NewHandlerContainer(controllers *controllers.ControllersContainer) HandlerContainer {
 	return HandlerContainer{
 		Handlers: []Handler{
 			healthcheck.NewHealthHandler(),
+			account.NewAccountHandler(controllers),
 		},
 	}
 }
