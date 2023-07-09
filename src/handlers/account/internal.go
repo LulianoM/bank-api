@@ -2,6 +2,7 @@ package account
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/LulianoM/bank-api/src/models"
 	"github.com/gofiber/fiber/v2"
@@ -16,6 +17,7 @@ func (ah *AccountHanlder) Create(c *fiber.Ctx) error {
 	}
 
 	newAccount.ID = uuid.New()
+	newAccount.EventDate = time.Now()
 
 	if err := ah.accountController.Create(newAccount); err != nil {
 		return c.Status(http.StatusBadRequest).JSON(err)

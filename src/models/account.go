@@ -2,6 +2,7 @@ package models
 
 import (
 	"regexp"
+	"time"
 
 	"github.com/google/uuid"
 )
@@ -11,6 +12,7 @@ type Account struct {
 
 	ID             uuid.UUID `json:"id" gorm:"primaryKey" `
 	DocumentNumber string    `json:"document_number" gorm:"unique"`
+	EventDate      time.Time `json:"event_date"`
 }
 
 func (a *Account) IsValidDocumentNumber() bool {

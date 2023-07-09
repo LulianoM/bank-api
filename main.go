@@ -9,6 +9,7 @@ import (
 	"github.com/LulianoM/bank-api/src/controllers"
 	"github.com/LulianoM/bank-api/src/handlers"
 	"github.com/LulianoM/bank-api/src/http"
+	"github.com/LulianoM/bank-api/src/repositories"
 )
 
 func main() {
@@ -24,7 +25,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	controllersContainer := controllers.NewControllerContainer()
+	repositoriesContainer := repositories.NewRepositoriesContainer()
+	controllersContainer := controllers.NewControllerContainer(repositoriesContainer)
 	handlersWithServices := handlers.NewHandlerContainer(controllersContainer)
 	http.NewServer(handlersWithServices).Start()
 }
