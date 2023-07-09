@@ -3,6 +3,7 @@ package account
 import (
 	"github.com/LulianoM/bank-api/internal/database"
 	"github.com/LulianoM/bank-api/src/models"
+	"github.com/google/uuid"
 )
 
 type AccountRepositories struct{}
@@ -16,4 +17,12 @@ func (ar *AccountRepositories) Create(account models.Account) error {
 		return result.Error
 	}
 	return nil
+}
+
+func (ar *AccountRepositories) GetByID(id uuid.UUID) (models.Account, error) {
+	var account models.Account
+	if result := database.DB.First(&account, "id = ?", id); result.Error != nil {
+		return account, result.Error
+	}
+	return account, nil
 }

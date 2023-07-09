@@ -1,6 +1,7 @@
 package account
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -23,4 +24,22 @@ func (ah *AccountHanlder) Create(c *fiber.Ctx) error {
 		return c.Status(http.StatusBadRequest).JSON(err)
 	}
 	return c.Status(http.StatusOK).JSON(newAccount)
+}
+
+func (ah *AccountHanlder) Get(c *fiber.Ctx) error {
+	id, err := uuid.Parse(c.Params("id"))
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+			"error": fmt.Sprintf("uuid error: %s", err.Error()),
+		})
+	}
+
+	account, err := ah.accountController.GetByID(id)
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+			"error": err.Error(),
+		})
+	}
+
+	return c.Status(http.StatusOK).JSON(account)
 }
