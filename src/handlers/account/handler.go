@@ -17,4 +17,5 @@ func NewAccountHandler(controllers *controllers.ControllersContainer) *AccountHa
 func (ah *AccountHanlder) Routes(d dispatcher.Dispatcher) {
 	api := d.Public.Group("/account")
 	api.Post("", ah.Create)
+	api.Get("/:id", ah.Get)
 }
