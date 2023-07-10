@@ -13,4 +13,5 @@ type AccountController interface {
 type AccountRepositories interface {
 	Create(models.Account) error
 	GetByID(uuid.UUID) (models.Account, error)
+	AccountExists(id uuid.UUID) bool
 }

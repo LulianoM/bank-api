@@ -26,3 +26,12 @@ func (ar *AccountRepositories) GetByID(id uuid.UUID) (models.Account, error) {
 	}
 	return account, nil
 }
+
+func (ar *AccountRepositories) AccountExists(id uuid.UUID) bool {
+	var account models.Account
+	var count int64
+
+	database.DB.First(&account, "id = ?", id).Count(&count)
+
+	return count > 0
+}

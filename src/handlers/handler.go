@@ -4,6 +4,7 @@ import (
 	"github.com/LulianoM/bank-api/src/controllers"
 	"github.com/LulianoM/bank-api/src/handlers/account"
 	"github.com/LulianoM/bank-api/src/handlers/healthcheck"
+	"github.com/LulianoM/bank-api/src/handlers/transaction"
 	"github.com/LulianoM/bank-api/src/http/dispatcher"
 
 	"github.com/gofiber/fiber/v2"
@@ -23,6 +24,7 @@ func NewHandlerContainer(controllers *controllers.ControllersContainer) HandlerC
 		Handlers: []Handler{
 			healthcheck.NewHealthHandler(),
 			account.NewAccountHandler(controllers),
+			transaction.NewTransactionHandler(controllers),
 		},
 	}
 }
