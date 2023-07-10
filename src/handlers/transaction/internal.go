@@ -2,12 +2,10 @@ package transaction
 
 import (
 	"net/http"
-	"time"
 
 	"github.com/LulianoM/bank-api/internal/httputils"
 	"github.com/LulianoM/bank-api/src/models"
 	"github.com/gofiber/fiber/v2"
-	"github.com/google/uuid"
 )
 
 func (th *TransactionHanlder) Create(c *fiber.Ctx) error {
@@ -17,10 +15,13 @@ func (th *TransactionHanlder) Create(c *fiber.Ctx) error {
 		return c.Status(http.StatusBadRequest).JSON(httputils.BuildErrorResponse(err))
 	}
 
-	newTransaction.ID = uuid.New()
-	newTransaction.EventDate = time.Now()
+	if err := newTransaction.ValidateBody(); err != nil {
+		return c.Status(http.StatusBadRequest).JSON(httputils.BuildErrorResponse(err))
+	}
 
-	// validate bodys
+	newTransaction.SetTransactionData()
+
+	newTransaction.SetTransactionAmount()
 
 	if err := th.transactionController.Create(newTransaction); err != nil {
 		return c.Status(http.StatusBadRequest).JSON(httputils.BuildErrorResponse(err))
