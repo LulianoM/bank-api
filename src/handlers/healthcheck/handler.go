@@ -1,6 +1,7 @@
 package healthcheck
 
 import (
+	"github.com/LulianoM/bank-api/internal/httputils"
 	"github.com/LulianoM/bank-api/src/http/dispatcher"
 	"github.com/gofiber/fiber/v2"
 )
@@ -18,5 +19,5 @@ func (this *HealthHandler) Routes(d dispatcher.Dispatcher) {
 }
 
 func (this *HealthHandler) Ping(c *fiber.Ctx) error {
-	return c.Status(200).SendString("Pong :)")
+	return c.Status(200).JSON(httputils.BuildItemResponse("pong :)"))
 }
