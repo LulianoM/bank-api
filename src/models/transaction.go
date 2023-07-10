@@ -10,7 +10,7 @@ type Transaction struct {
 	Metadata
 
 	Account   *Account  `json:"-"`
-	AccountID uuid.UUID `json:"acount_id"`
+	AccountID uuid.UUID `json:"account_id"`
 
 	ID          uuid.UUID `json:"id" gorm:"unique"`
 	OperationID int       `json:"operation_id"`

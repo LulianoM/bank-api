@@ -17,6 +17,8 @@ func (ah *AccountHanlder) Create(c *fiber.Ctx) error {
 		return c.Status(http.StatusBadRequest).JSON(err)
 	}
 
+	// TECH DEBT: Validate body
+
 	newAccount.ID = uuid.New()
 	newAccount.EventDate = time.Now()
 
