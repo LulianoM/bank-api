@@ -35,8 +35,8 @@ func (t *Transaction) ValidateBody() error {
 		return fmt.Errorf("'account_id' cannot be empty")
 	}
 
-	if t.OperationID < 0 {
-		return fmt.Errorf("'operation_id' must be a positive integer")
+	if t.OperationID < 0 || t.OperationID > 4 {
+		return fmt.Errorf("'operation_id' must be a number between 1 and 4")
 	}
 
 	if t.Amount <= 0 {
