@@ -1,0 +1,26 @@
+# NEED TO FIX
+version: '3.9'
+
+services:
+  proxy: #&mock-image
+    image: caddy
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - '8080:80'
+    depends_on:
+      - mock_v2
+
+  swagger_ui:
+    image: swaggerapi/swagger-ui
+    platform: linux/amd64
+    volumes:
+      - ../../docs:/usr/share/nginx/html/doc:ro
+    environment:
+      BASE_URL: '/'
+      URLS: '[{ url: "doc/openapi.yaml", name: "v2" }]'
+
+  # mock_v2:
+  #   <<: *mock-image
+  #   volumes:
+  #     - ../api.yaml:/tmp/spec.yaml:ro

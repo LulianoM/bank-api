@@ -1,0 +1,14 @@
+http://localhost {
+    route /*/v1/* {
+        reverse_proxy mock_v1:4010
+    }
+
+    route /* {
+        reverse_proxy swagger_ui:8080
+    }
+
+    header Access-Control-Allow-Methods "OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE"
+    header Access-Control-Allow-Headers "*"
+}
+
+

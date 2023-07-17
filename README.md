@@ -6,6 +6,10 @@
 
 ---
 
+## API Design
+
+É adotado o padrão de design de APIs REST da google. Para mais informações como este padrão funciona leia a seguinte [doc](https://cloud.google.com/apis/design) do google.
+
 ## Configuracoes do Projeto
 
 ---

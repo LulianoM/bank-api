@@ -22,6 +22,10 @@ GOTOOL ?= $(GO) tool
 run/container:
 	docker-compose up -d
 
+.PHONY: docs
+docs:
+	docker compose -f ./docs/api/deployment/docker-compose.yaml up --force-recreate
+
 ##########################################################################################
 # Setup
 ##########################################################################################
