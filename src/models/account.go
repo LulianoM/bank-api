@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"regexp"
 	"time"
 
@@ -16,6 +17,18 @@ type Account struct {
 }
 
 func (a *Account) IsValidDocumentNumber() bool {
-	re := regexp.MustCompile(`^\d{3}\.\d{3}\.\d{3}-\d{2}$`)
-	return re.MatchString(a.DocumentNumber)
+	if a.DocumentNumber == "" {
+		return false
+	}
+
+	regex := regexp.MustCompile(`^\d+$`)
+	return regex.MatchString(a.DocumentNumber)
+}
+
+func (a *Account) IsValidBody() error {
+	if !a.IsValidDocumentNumber() {
+		return fmt.Errorf("invalid document number")
+	}
+
+	return nil
 }
