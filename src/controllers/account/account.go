@@ -8,17 +8,27 @@ import (
 )
 
 type AccountController struct {
-	accountRepositoes interfaces.AccountRepositories
+	accountRepositories interfaces.AccountRepositories
+	creditRepositories  interfaces.CreditRepositories
 }
 
 func NewAccountController(repositories *repositories.RepositoriesContainer) *AccountController {
-	return &AccountController{accountRepositoes: repositories.AccountRepositories}
+	return &AccountController{accountRepositories: repositories.AccountRepositories,
+		creditRepositories: repositories.CreditRepositories,
+	}
 }
 
 func (ac *AccountController) Create(account models.Account) error {
-	return ac.accountRepositoes.Create(account)
+	var newCredit models.Credit
+	newCredit.NewCredit(account.ID)
+
+	if err := ac.creditRepositories.Create(newCredit); err != nil {
+		return err
+	}
+
+	return ac.accountRepositories.Create(account)
 }
 
 func (ac *AccountController) GetByID(id uuid.UUID) (models.Account, error) {
-	return ac.accountRepositoes.GetByID(id)
+	return ac.accountRepositories.GetByID(id)
 }
